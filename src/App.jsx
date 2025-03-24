@@ -8,6 +8,7 @@ import Categorias from "./views/Categorias";
 import Productos from "./views/Productos";
 
 import './App.css'
+import Catalogo from "./views/Catalogo";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="/inicio" element={<ProtectedRoute element={<Inicio />} />} />
               <Route path="/categorias" element={<ProtectedRoute element={<Categorias />} />}/>
               <Route path="/productos" element={<ProtectedRoute element={<Productos />} />}/>
+              <Route path="/catalogo" element={<ProtectedRoute element={<Catalogo />} />}/>
             </Routes>
           </main>
       </Router>
