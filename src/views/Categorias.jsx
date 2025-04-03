@@ -16,10 +16,9 @@ import TablaCategorias from "../components/Categorias/TablaCategorias";
 import ModalRegistroCategoria from "../components/Categorias/ModalRegistroCategoria";
 import ModalEdicionCategoria from "../components/Categorias/ModalEdicionCategoria";
 import ModalEliminacionCategoria from "../components/Categorias/ModalEliminacionCategoria";
-
+import CuadroBusquedas from "../components/busquedas/CuadroBusquedas";
 
 const Categorias = () => {
-  
   // Estados para manejo de datos
   const [categorias, setCategorias] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +30,8 @@ const Categorias = () => {
   });
   const [categoriaEditada, setCategoriaEditada] = useState(null);
   const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
+  const [categoriasFiltradas, setCategoriasFiltradas] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   // Referencia a la colección de categorías en Firestore
   const categoriasCollection = collection(db, "categorias");
@@ -44,6 +45,7 @@ const Categorias = () => {
         id: doc.id,
       }));
       setCategorias(fetchedCategorias);
+      setCategoriasFiltradas(fetchedCategorias); 
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
     }
@@ -53,6 +55,21 @@ const Categorias = () => {
   useEffect(() => {
     fetchCategorias();
   }, []);
+
+  // Manejo del cuadro de búsqueda
+  const handleSearchChange = (e) => {
+    const text = e.target.value.toLowerCase();
+    console.log("Texto de búsqueda:", text); // Debugging
+    setSearchText(text);
+
+    const filtradas = categorias.filter(
+      (categoria) =>
+        categoria.nombre.toLowerCase().includes(text) ||
+        categoria.descripcion.toLowerCase().includes(text)
+    );
+
+    setCategoriasFiltradas(filtradas);
+  };
 
   // Manejador de cambios en inputs del formulario de nueva categoría
   const handleInputChange = (e) => {
@@ -133,13 +150,15 @@ const Categorias = () => {
   // Renderizado del componente
   return (
     <Container className="mt-5">
-      <br />
       <h4>Gestión de Categorías</h4>
       <Button className="mb-3" onClick={() => setShowModal(true)}>
         Agregar categoría
       </Button>
+
+      <CuadroBusquedas searchText={searchText} handleSearchChange={handleSearchChange} />
+
       <TablaCategorias
-        categorias={categorias}
+        categorias={categoriasFiltradas}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
       />
