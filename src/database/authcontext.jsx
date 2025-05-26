@@ -2,37 +2,62 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { appfirebase } from "./firebaseconfig";
 
-// Creamos el contexto de autenticación
+
+// Crear el contexto
 const AuthContext = createContext();
 
-// Hook para acceder al contexto de autenticación
+// Hook personalizado para consumir el contexto
 export const useAuth = () => useContext(AuthContext);
 
-// Proveedor del contexto de autenticación
+// Proveedor de contexto
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
-  // Observador de estado de autenticación
+  // Detectar cambios en la conexión a internet
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOffline(false);
+      console.log("¡Conexión restablecida!");
+      alert("¡Conexión restablecida!");
+    };
+
+    const handleOffline = () => {
+      setIsOffline(true);
+      console.log("Estás offline. Los cambios se sincronizarán cuando vuelvas a conectarte.");
+      alert("Estás offline. Los cambios se sincronizarán cuando vuelvas a conectarte.");
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // Verificar si el usuario está autenticado
   useEffect(() => {
     const auth = getAuth(appfirebase);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setIsLoggedIn(!!user); // Verifica si el usuario está autenticado
+      setIsLoggedIn(!!user);
     });
-    return () => unsubscribe(); // Limpiar el observador
+    return () => unsubscribe();
   }, []);
 
-  // Función para cerrar sesión
+  // Cerrar sesión
   const logout = async () => {
     const auth = getAuth(appfirebase);
     await signOut(auth);
     setIsLoggedIn(false);
-    setUser(null); // Aseguramos que el estado se actualice correctamente
   };
 
+  // Valores disponibles para los componentes hijos
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn, logout }}>
+    <AuthContext.Provider value={{ user, isLoggedIn, isOffline, logout }}>
       {children}
     </AuthContext.Provider>
   );

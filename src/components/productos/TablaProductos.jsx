@@ -7,6 +7,7 @@ const TablaProductos = ({
   productos,
   openEditModal,
   openDeleteModal,
+  handleCopy,
   totalItems,
   itemsPerPage,
   currentPage,
@@ -47,9 +48,17 @@ const TablaProductos = ({
                 <Button
                   variant="outline-danger"
                   size="sm"
+                  className="me-2"
                   onClick={() => openDeleteModal(producto)}
                 >
                   <i className="bi bi-trash"></i>
+                </Button>
+                <Button
+                  variant="outline-info"
+                  size="sm"
+                  onClick={() => handleCopy(producto)}
+                >
+                  <i className="bi bi-clipboard"></i>
                 </Button>
               </td>
             </tr>

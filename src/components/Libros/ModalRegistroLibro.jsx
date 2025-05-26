@@ -1,19 +1,18 @@
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
-const ModalRegistroProducto = ({
+const ModalRegistroLibro = ({
   showModal,
   setShowModal,
-  nuevoProducto,
+  nuevoLibro,
   handleInputChange,
-  handleImageChange,
-  handleAddProducto,
-  categorias
+  handlePdfChange,
+  handleAddLibro,
 }) => {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Agregar Producto</Modal.Title>
+        <Modal.Title>Agregar Libro</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -22,41 +21,32 @@ const ModalRegistroProducto = ({
             <Form.Control
               type="text"
               name="nombre"
-              value={nuevoProducto.nombre}
+              value={nuevoLibro.nombre}
               onChange={handleInputChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Precio</Form.Label>
+            <Form.Label>Autor</Form.Label>
             <Form.Control
-              type="number"
-              name="precio"
-              value={nuevoProducto.precio}
+              type="text"
+              name="autor"
+              value={nuevoLibro.autor}
               onChange={handleInputChange}
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Categoría</Form.Label>
-            <Form.Select
-              name="categoria"
-              value={nuevoProducto.categoria}
-              onChange={handleInputChange}
-            >
-              <option value="">Seleccione una categoría</option>
-              {categorias.map((cat) => (
-                <option key={cat.id} value={cat.nombre}>
-                  {cat.nombre}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Imagen</Form.Label>
+            <Form.Label>Género</Form.Label>
             <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
+              type="text"
+              name="genero"
+              value={nuevoLibro.genero}
+              onChange={handleInputChange}
+              placeholder="Ej: Ficción, No Ficción, Fantasía"
             />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Documento PDF</Form.Label>
+            <Form.Control type="file" accept="application/pdf" onChange={handlePdfChange} />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -64,7 +54,7 @@ const ModalRegistroProducto = ({
         <Button variant="secondary" onClick={() => setShowModal(false)}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={handleAddProducto}>
+        <Button variant="primary" onClick={handleAddLibro}>
           Guardar
         </Button>
       </Modal.Footer>
@@ -72,4 +62,4 @@ const ModalRegistroProducto = ({
   );
 };
 
-export default ModalRegistroProducto;
+export default ModalRegistroLibro;

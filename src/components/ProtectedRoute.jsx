@@ -1,13 +1,11 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../database/authcontext";
+import { useAuth } from "../../src/database/AuthContext";
 
-// Componente de ruta protegida
 const ProtectedRoute = ({ element }) => {
-  const { isLoggedIn } = useAuth();
+  const { user } = useAuth();
 
-  // Si el usuario no está autenticado, redirige a la página de inicio
-  return isLoggedIn ? element : <Navigate to="/" replace />;
+  return user ? element : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoute;
