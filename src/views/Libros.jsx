@@ -9,7 +9,7 @@ import ModalRegistroLibro from "../../src/components/Libros/ModalRegistroLibro";
 import ModalEdicionLibro from "../../src/components/Libros/ModalEdicionLibro";
 import ModalEliminacionLibro from "../../src/components/Libros/ModalEliminacionLibro";
 import ModalQR from "../components/qr/ModalQR"; 
-import { useAuth } from "../database/AuthContext";
+import { useAuth } from "../database/authcontext";
 
 const Libros = () => {
   const [libros, setLibros] = useState([]);
