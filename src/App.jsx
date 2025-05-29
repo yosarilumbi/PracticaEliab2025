@@ -12,6 +12,7 @@ import Clima from "./views/Clima";
 import Pronunciacion from "./views/Pronunciacion";
 import Estadisticas from "./views/Estadisticas";
 
+
 import './App.css'
 
 function App() {

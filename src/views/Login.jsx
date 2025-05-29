@@ -23,10 +23,8 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log("Usuario autenticado:", userCredential.user);
-        // Guardar las credenciales en localStorage
         localStorage.setItem("adminEmail", email);
         localStorage.setItem("adminPassword", password);
-        // Redirigir después de iniciar sesión
         navigate("/inicio");
       })
       .catch((error) => {
@@ -35,10 +33,11 @@ const Login = () => {
       });
   };
 
-  // Si el usuario ya está autenticado, redirigir automáticamente
-  if (user) {
-    navigate("/inicio");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/inicio");
+    }
+  }, [user, navigate]);
 
   return (
     <Container className="d-flex vh-100 justify-content-center align-items-center">
