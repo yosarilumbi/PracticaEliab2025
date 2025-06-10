@@ -16,7 +16,7 @@ const Paginacion = ({
     }
   };
 
-  // Generar los ítems de paginación
+  // Generar los items de paginación
   const paginationItems = [];
   const maxPagesToShow = 3; // Máximo de páginas visibles a la vez
   let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
@@ -50,13 +50,9 @@ const Paginacion = ({
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           />
-
           {startPage > 1 && <Pagination.Ellipsis />}
-
           {paginationItems}
-
           {endPage < totalPages && <Pagination.Ellipsis />}
-
           <Pagination.Next
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}

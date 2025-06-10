@@ -78,4 +78,3 @@ const ModalEdicionProducto = ({
 };
 
 export default ModalEdicionProducto;
-

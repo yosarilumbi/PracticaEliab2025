@@ -24,17 +24,13 @@ const TablaLibros = ({ libros, openEditModal, openDeleteModal, openQRModal }) =>
             <td>
               {libro.pdfUrl && (
                 <>
-                  <a
-                    href={libro.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="me-2"
-                  >
+                  <a href={libro.pdfUrl} target="_blank" rel="noopener noreferrer">
                     Ver PDF
                   </a>
                   <Button
-                    variant="outline-dark"
+                    variant="outline-info"
                     size="sm"
+                    className="ms-2"
                     onClick={() => openQRModal(libro.pdfUrl)}
                   >
                     <i className="bi bi-qr-code"></i>

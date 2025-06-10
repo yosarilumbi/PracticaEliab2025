@@ -7,12 +7,14 @@ const TablaProductos = ({
   productos,
   openEditModal,
   openDeleteModal,
-  handleCopy,
+  handleCopy = () => {},  // default función vacía para evitar error
   totalItems,
   itemsPerPage,
   currentPage,
   setCurrentPage
 }) => {
+  
+
   return (
     <>
       <Table striped bordered hover responsive>

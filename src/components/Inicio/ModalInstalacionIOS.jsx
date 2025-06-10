@@ -17,7 +17,7 @@ const ModalInstalacionIOS = ({ mostrar, cerrar }) => {
           <li>Confirma el nombre y presiona "Agregar".</li>
         </ol>
         <div className="text-center mt-3">
-          <Image src={instruccionesGif} fluid alt="Instrucciones visuales" />
+          <Image src={InstruccionesGif} fluid alt="Instrucciones visuales" />
         </div>
       </Modal.Body>
       <Modal.Footer>
